@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useState } from 'react'
 
-function GradForm() {
+function GradForm({ onSuccess }) {
     const [formData, setFormData] = useState({
-        gradName:'', 
+        name:'', 
         gradDate:'', 
         prevJob:'', 
+        mentorType:'',
         mentorText:'', 
     })
 
@@ -19,30 +19,33 @@ function GradForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         fetch('http://localhost:8000/api/grad_profile/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
         })
-        .then(response => response.json())
-        .then(data => console.log('Form submitted:', data))
-        .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                console.log('Grad form submitted:', data)
+                onSuccess(data)
+                })
+            .catch(error => console.error('Error:', error))
     }
 
     return (
-        <div className="container d-flex justify-content-center align-items-center vh-100">
+        <div className="container d-flex justify-content-center align-items-start vh-100">
         <div className="card p-4 shadow">
             <h1 className="mb-4">Grad Profile</h1>
             <form onSubmit={ handleSubmit }>
             <div className="mb-3">
-                <label htmlFor="gradName" className="form-label">Name:</label>
+                <label htmlFor="name" className="form-label">Name:</label>
                 <input
                 type="text"
                 className="form-control"
-                id="gradName"
-                name="gradName"
-                value={ formData.gradName }
+                id="name"
+                name="name"
+                value={ formData.name }
                 onChange={ handleChange }
                 />
             </div>
@@ -54,8 +57,8 @@ function GradForm() {
                 className="form-control"
                 id="gradDate"
                 name="gradDate"
-                value={formData.gradDate}
-                onChange={handleChange}
+                value={ formData.gradDate }
+                onChange={ handleChange }
                 />
             </div>
 
@@ -65,8 +68,8 @@ function GradForm() {
                 className="form-select"
                 id="prevJob"
                 name="prevJob"
-                value={formData.prevJob}
-                onChange={handleChange}
+                value={ formData.prevJob }
+                onChange={ handleChange }
                 >
                 <option value="">Select an option</option>
                 <option value="artist">Artist</option>
@@ -77,13 +80,45 @@ function GradForm() {
             </div>
 
             <div className="mb-3">
+                <label className="form-label">Preferred Mentorship Type:</label>
+                <div className="form-check">
+                    <input
+                        className="form-check-input"
+                        type="radio"
+                        name="mentorType"
+                        id="Career Advice"
+                        value="Career Advice"
+                        checked={ formData.mentorType === 'Career Advice' }
+                        onChange={ handleChange }
+                    />
+                    <label className="form-check-label" htmlFor="Career Advice">
+                        Career Advice
+                    </label>
+                </div>
+                <div className="form-check">
+                    <input
+                        className="form-check-input"
+                        type="radio"
+                        name="mentorType"
+                        id="Code Review / Project Feedback"
+                        value="Code Review / Project Feedback"
+                        checked={ formData.mentorType === 'Code Review / Project Feedback' }
+                        onChange={ handleChange }
+                    />
+                    <label className="form-check-label" htmlFor="Code Review / Project Feedback">
+                        Code Review / Project Feedback
+                    </label>
+                </div>
+            </div>
+
+            <div className="mb-3">
                 <label htmlFor="mentorText" className="form-label">What I'm looking for in a mentor</label>
                 <textarea
                 className="form-control"
                 id="mentorText"
                 name="mentorText"
-                value={formData.mentorText}
-                onChange={handleChange}
+                value={ formData.mentorText }
+                onChange={ handleChange }
                 />
             </div>
 

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-// import 'bootstrap/dist/css/bootstrap.min.css'
 
-function MentorForm() {
+function MentorForm({ onSuccess }) {
     const [formData, setFormData] = useState({
-        mentorName:'', 
+        name:'', 
         gradDate:'', 
         prevJob:'', 
         currentJob:'',
@@ -21,30 +20,33 @@ function MentorForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         fetch('http://localhost:8000/api/mentor_profile/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
         })
-        .then(response => response.json())
-        .then(data => console.log('Form submitted:', data))
-        .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                console.log('Mentor form submitted:', data)
+                onSuccess(data)
+                })
+            .catch(error => console.error('Error:', error))
     }
 
     return (
-        <div className="container d-flex justify-content-center align-items-center vh-100">
+        <div className="container d-flex justify-content-center align-items-start vh-100">
         <div className="card p-4 shadow">
             <h1 className="mb-4">Mentor Profile</h1>
             <form onSubmit={ handleSubmit }>
             <div className="mb-3">
-                <label htmlFor="mentorName" className="form-label">Name:</label>
+                <label htmlFor="name" className="form-label">Name:</label>
                 <input
                     type="text"
                     className="form-control"
-                    id="mentorName"
-                    name="mentorName"
-                    value={ formData.mentorName }
+                    id="name"
+                    name="name"
+                    value={ formData.name }
                     onChange={ handleChange }
                 />
             </div>
@@ -56,8 +58,8 @@ function MentorForm() {
                     className="form-control"
                     id="gradDate"
                     name="gradDate"
-                    value={formData.gradDate}
-                    onChange={handleChange}
+                    value={ formData.gradDate }
+                    onChange={ handleChange }
                 />
             </div>
 
@@ -67,8 +69,8 @@ function MentorForm() {
                     className="form-select"
                     id="prevJob"
                     name="prevJob"
-                    value={formData.prevJob}
-                    onChange={handleChange}
+                    value={ formData.prevJob }
+                    onChange={ handleChange }
                 >
                 <option value="">Select an option</option>
                 <option value="artist">Artist</option>
@@ -84,8 +86,8 @@ function MentorForm() {
                     className="form-select"
                     id="currentJob"
                     name="currentJob"
-                    value={formData.currentJob}
-                    onChange={handleChange}
+                    value={ formData.currentJob }
+                    onChange={ handleChange }
                 >
                 <option value="">Select an option</option>
                 <option value="cybersec">CyberSecurity</option>
@@ -109,8 +111,8 @@ function MentorForm() {
                         name="mentorType"
                         id="Career Advice"
                         value="Career Advice"
-                        checked={formData.mentorType === 'Career Advice'}
-                        onChange={handleChange}
+                        checked={ formData.mentorType === 'Career Advice' }
+                        onChange={ handleChange }
                     />
                     <label className="form-check-label" htmlFor="Career Advice">
                         Career Advice
@@ -123,8 +125,8 @@ function MentorForm() {
                         name="mentorType"
                         id="Code Review / Project Feedback"
                         value="Code Review / Project Feedback"
-                        checked={formData.mentorType === 'Code Review / Project Feedback'}
-                        onChange={handleChange}
+                        checked={ formData.mentorType === 'Code Review / Project Feedback' }
+                        onChange={ handleChange }
                     />
                     <label className="form-check-label" htmlFor="Code Review / Project Feedback">
                         Code Review / Project Feedback
@@ -138,8 +140,8 @@ function MentorForm() {
                     className="form-control"
                     id="gradText"
                     name="gradText"
-                    value={formData.gradText}
-                    onChange={handleChange}
+                    value={ formData.gradText }
+                    onChange={ handleChange }
                 />
             </div>
 
