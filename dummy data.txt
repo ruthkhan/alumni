@@ -1,0 +1,13 @@
+INSERT INTO mentormatch_mentordata (mentorName, gradDate, prevJob, currentJob, mentorType, gradText)
+VALUES 
+('Mentor A', '2021-02-03', 'custService', 'cybersec', 'Career Advice', 'Previously offered internship to grad'),
+('Mentor B', '2022-03-04', 'sales', 'dev', 'Code Review / Project Feedback', 'Worked with many bootcamp grads'), 
+('Mentor C', '2023-04-05', 'military', 'infra', 'Career Advice', 'Can explain different IT roles'), 
+('Mentor D', '2020-05-16', 'artist', 'pMgr', 'Code Review / Project Feedback', 'Good knowledge of different tech career options'), 
+('Mentor E', '2021-06-27', 'custService', 'sales', 'Career Advice', 'Can advise how to use your previous training in tech'), 
+('Mentor F', '2022-07-30', 'sales', 'test', 'Code Review / Project Feedback', 'Familiar with SDLC'), 
+('Mentor G', '2023-08-19', 'military', 'otherTech', 'Career Advice', 'Can explain alternative tech careers beyond developer'), 
+('Mentor H', '2020-09-20', 'artist', 'nonTech', 'Career Advice', 'How bootcamp can help your existing role'), 
+('Mentor I', '2021-10-31', 'custService', 'dev', 'Career Advice', 'How to put together a portfolio'), 
+('Mentor J', '2022-11-12', 'sales', 'pMgr', 'Code Review / Project Feedback', 'Successfully launched several SAAS products');
+
