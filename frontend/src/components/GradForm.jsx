@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function GradForm({ onSuccess }) {
+const GradForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({
         name:'', 
         gradDate:'', 
@@ -17,20 +17,8 @@ function GradForm({ onSuccess }) {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        fetch('http://localhost:8000/api/grad_profile/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Grad form submitted:', data)
-                onSuccess(data)
-                })
-            .catch(error => console.error('Error:', error))
+        e.preventDefault()
+        onSubmit({ grad_data: formData })
     }
 
     return (
