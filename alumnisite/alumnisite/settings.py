@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
+from dotenv import load_dotenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^w12qt!qf#xj4aatasfvu2+ntcd&+q+kr69%pwsf_ww2sbp2*)'
+load_dotenv()
+SECRET_KEY = os.getenv('SECRET_KEY', 'defaultsecretkey')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -116,6 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
+
+LOGIN_URL = 'http://localhost:5173/login/'
+LOGIN_REDIRECT_URL = 'http://localhost:5173/matches/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

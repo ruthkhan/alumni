@@ -23,8 +23,8 @@ function MentorForm({ onSubmit }) {
     }
 
     return (
-        <div className="container d-flex justify-content-center align-items-start vh-100">
-            <div className="card p-4 shadow">
+        <div className="container d-flex justify-content-center align-items-start">
+            <div className="p-4">
                 <h2 className="mb-4">Mentor Profile</h2>
                 <form onSubmit={ handleSubmit }>
                     <div className="mb-3">
