@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import UserContext from '../components/UserContext'
+import UserContext from './UserContext'
 
 function Login() {
 
-    const { mentorMatches, setMentorMatches, gradMatches, setGradMatches } = useContext(UserContext)
+    const { userId, setUserId, visibleMatches, setVisibleMatches, userType, setUserType } = useContext(UserContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -18,14 +18,14 @@ function Login() {
                 password,
             })
             console.log('Login success:', response.data)
+            setUserType(response.data.userType)
             if (response.data.userType === 'mentor') {
-                setGradMatches(response.data.grad_matches)
-                setMentorMatches([])
+                setVisibleMatches(response.data.grad_matches)
             } else if (response.data.userType === 'grad') {
-                setMentorMatches(response.data.mentor_matches)
-                setGradMatches([])
+                setVisibleMatches(response.data.mentor_matches)
             }
             // Redirect to MatchPage upon successful login
+            setUserId(response.data.userId)
             navigate('/matches')
         } catch (error) {
             console.error('Login failed. Please register first if you have not already done so.', error.message)

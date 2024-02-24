@@ -7,11 +7,10 @@ import UserContext from '../components/UserContext'
 
 const Registration = () => {
 
-    const { mentorMatches, setMentorMatches, gradMatches, setGradMatches } = useContext(UserContext)
+    const { userId, setUserId, visibleMatches, setVisibleMatches, userType, setUserType } = useContext(UserContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [userType, setUserType] = useState('grad') // 'grad' or 'mentor'
     const navigate = useNavigate()
 
     const handleRegistration = async (formData) => {
@@ -24,10 +23,11 @@ const Registration = () => {
             })
             console.log('Registration successful:', response.data)
             if (userType === 'mentor') {
-                setGradMatches(response.data.gradMatches)
+                setVisibleMatches(response.data.gradMatches)
             } else if (userType === 'grad') {
-                setMentorMatches(response.data.mentorMatches)
+                setVisibleMatches(response.data.mentorMatches)
             }
+            setUserId(response.data.userId)
             // Redirect to Match Page upon successful registration
             navigate('/matches')
         } catch (error) {

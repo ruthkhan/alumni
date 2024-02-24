@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import GradData, MentorData, CurrentUser
+from .models import GradData, MentorData, CurrentUser, RemovedMatch
 
 class GradDataSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=CurrentUser.objects.all(), required=False)
@@ -31,3 +31,8 @@ class CurrentUserSerializer(serializers.ModelSerializer):
         elif userType == 'mentor' and mentor_data:
             MentorData.objects.create(user=user, **mentor_data)
         return user
+
+class RemovedMatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RemovedMatch
+        fields = ['id', 'user', 'match_id', 'match_type']

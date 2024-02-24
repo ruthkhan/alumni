@@ -5,14 +5,16 @@ import Login from './components/Login'
 import UserContext from './components/UserContext'
 import Matches from './views/Matches'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './App.css'
 
 function App() {
 
-  const [mentorMatches, setMentorMatches] = useState([])
-  const [gradMatches, setGradMatches] = useState([])
+  const [userId, setUserId] = useState('')
+  const [userType, setUserType] = useState('') 
+  const [visibleMatches, setVisibleMatches] = useState([])
   
   return (
-    <UserContext.Provider value={{ mentorMatches, setMentorMatches, gradMatches, setGradMatches }}>
+    <UserContext.Provider value={{ userId, setUserId, visibleMatches, setVisibleMatches, userType, setUserType }}>
       <BrowserRouter>
         <Routes>
             <Route path="/register" element={ <Registration /> } />
